@@ -1,8 +1,16 @@
 import React from "react";
 
+import CreateTodo from "./components/CreateTodo";
+
 import "./App.scss";
 
 function App() {
+  const todos = [
+    "estudiar HTml",
+    "estudiar CSS",
+    "estudiar JS"
+  ]
+
   return (
     <main className="container mt-5">
       <section className="row">
@@ -11,11 +19,7 @@ function App() {
         </div>
         <div>Dark Mode</div>
       </section>
-      <section className="createInput">
-        <form>
-          <input type="text" name="new-task" />
-        </form>
-      </section>
+      <CreateTodo todos={todos}/>
       <section className="todoList__container">
         <div className="todoList__item">
           <input type="checkBox" />
@@ -33,6 +37,7 @@ function App() {
           <button type="button">Close</button>
         </div>
       </section>
+      <h1>{todos}</h1>
     </main>
   );
 }
