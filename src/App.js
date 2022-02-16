@@ -1,7 +1,7 @@
 import React, {useState} from "react";
+import { Route } from "react-router-dom";
 
 import CreateTodo from "./components/CreateTodo";
-
 import TodoList from "./components/TodoList"
 
 import "./App.scss";
@@ -41,6 +41,8 @@ function App() {
     setPrevTodos(loadLocalStorage);
   }
 
+  const active = prevTodos.filter((todos)=>todos.status === false);
+  const completed = prevTodos.filter((todos)=>todos.status === true);
 
 
   return (
@@ -51,13 +53,26 @@ function App() {
         </div>
         <div>Dark Mode</div>
       </section>
+
       <CreateTodo handleSubmit={handleSubmit} handleChangeInput={handleChangeInput}/>
-      <TodoList prevTodos={prevTodos} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove}  />
+
+      <Route path="/" exact>
+        <TodoList prevTodos={prevTodos} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove}  />
+      </Route>
+
+      <Route path="/active" exact>
+        <TodoList prevTodos={active} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove} />
+      </Route>
+
+      <Route path="/completed" exact>
+        <TodoList prevTodos={completed} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove} />
+      </Route>
+
       <footer>
         <h3>5 items left</h3>
-        <button type="button">All</button>
-        <button type="button">Active</button>
-        <button type="button">Completed</button>
+        <a href="./">All</a>
+        <a href="./active">Active</a>
+        <a href="./completed">Completed</a>
         <button type="button">Clear Completed</button>
       </footer>
     </main>
