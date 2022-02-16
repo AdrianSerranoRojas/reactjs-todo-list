@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./CreateTodo.scss";
+
 export default function CreateTodo({handleSubmit, handleChangeInput}) {
 
     return(
