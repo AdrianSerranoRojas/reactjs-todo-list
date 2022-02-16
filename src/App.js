@@ -1,15 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
 
 import CreateTodo from "./components/CreateTodo";
 
 import "./App.scss";
 
+import {saveLocalStorage,loadLocalStorage} from "./utils/localStorageHelper";
+
+
 function App() {
-  const todos = [
-    "estudiar HTml",
-    "estudiar CSS",
-    "estudiar JS"
-  ]
+
+  const prevTodos = loadLocalStorage();
+  const [createValue, setCreateValue] = useState("");
+
+    const handleChangeInput = (event) => {
+        setCreateValue(event.target.value);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        prevTodos.push({title:createValue, status:false})
+        saveLocalStorage(prevTodos);
+    }
 
   return (
     <main className="container mt-5">
@@ -19,7 +30,7 @@ function App() {
         </div>
         <div>Dark Mode</div>
       </section>
-      <CreateTodo todos={todos}/>
+      <CreateTodo handleSubmit={handleSubmit} handleChangeInput={handleChangeInput}/>
       <section className="todoList__container">
         <div className="todoList__item">
           <input type="checkBox" />
@@ -37,7 +48,6 @@ function App() {
           <button type="button">Close</button>
         </div>
       </section>
-      <h1>{todos}</h1>
     </main>
   );
 }
