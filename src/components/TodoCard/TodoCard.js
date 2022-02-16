@@ -13,7 +13,7 @@ export default function TodoCard({ title, handleChangeStatus,handleRemove }) {
 
     return(
         <div className="todoList__item">
-            <input type="checkBox" onChange={handleChangeCheckbox}/>
+            <input className="checkBox-input" type="checkBox" onChange={handleChangeCheckbox}/>
             <div className="task">{title}</div>
             <button type="button" onClick={handleRemoveTodo}>Close</button>
         </div>

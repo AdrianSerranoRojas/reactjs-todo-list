@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 
 import CreateTodo from "./components/CreateTodo";
-import TodoCard from "./components/TodoCard";
+
+import TodoList from "./components/TodoList"
 
 import "./App.scss";
 
@@ -51,12 +52,7 @@ function App() {
         <div>Dark Mode</div>
       </section>
       <CreateTodo handleSubmit={handleSubmit} handleChangeInput={handleChangeInput}/>
-      <section className="todoList__container">
-        {prevTodos.map( (todos) => (
-          <TodoCard key={todos.title} title={todos.title} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove}/>
-        )
-        )}
-      </section>
+      <TodoList prevTodos={prevTodos} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove}  />
       <footer>
         <h3>5 items left</h3>
         <button type="button">All</button>
