@@ -8,7 +8,7 @@ export default function CreateTodo({handleSubmit, handleChangeInput}) {
         <section>
             <form onSubmit={handleSubmit}>
                 <input type="text" name="createTodo" onChange={handleChangeInput}/>
-                <input type="submit" />
+                <input type="submit" hidden/>
             </form>
         </section>
     );
