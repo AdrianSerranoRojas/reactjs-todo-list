@@ -14,6 +14,11 @@ function App() {
   const [prevTodos, setPrevTodos] = useState(loadLocalStorage());
   const [createValue, setCreateValue] = useState("");
 
+  const active = prevTodos.filter((todos)=>todos.status === false);
+  const completed = prevTodos.filter((todos)=>todos.status === true);
+
+  const [numTodo, setNumTodo] = useState(active.length);
+
   const handleChangeInput = (event) => {
       setCreateValue(event.target.value);
   }
@@ -33,17 +38,15 @@ function App() {
     newList.push(changedTodo);
     saveLocalStorage(prevTodos);
     setPrevTodos(loadLocalStorage);
+    setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
   }
-
+  
   const handleRemove = (title) => {
     const newList = prevTodos.filter((todos)=>todos.title !==title);
     saveLocalStorage(newList);
     setPrevTodos(loadLocalStorage);
+    setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
   }
-
-  const active = prevTodos.filter((todos)=>todos.status === false);
-  const completed = prevTodos.filter((todos)=>todos.status === true);
-
 
   return (
     <main className="container mt-5">
@@ -69,7 +72,7 @@ function App() {
       </Route>
 
       <footer>
-        <h3>5 items left</h3>
+        <h3>{numTodo}</h3>
         <a href="./">All</a>
         <a href="./active">Active</a>
         <a href="./completed">Completed</a>
