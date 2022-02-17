@@ -29,18 +29,18 @@ function App() {
       prevTodos.push({id:uuid(),title:createValue, status:false, isEditing:false})
       saveLocalStorage(prevTodos);
       setPrevTodos(loadLocalStorage);
+      setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
   }
 
   const handleIsEditing = (id) => {
-      const updatedTodo = prevTodos.filter((todo) => todo.id === id);
+      const updatedTodo = prevTodos.filter((todo) => todo.id === id)[0];
       const newList = prevTodos.filter((todos) => todos.id !== id);
       console.log(updatedTodo);
-      if(updatedTodo[0].isEditing === false){
-        updatedTodo[0].isEditing = true;
+      if(updatedTodo.isEditing === false){
+        updatedTodo.isEditing = true;
       } else{
-        updatedTodo[0].title = createValue;
-        updatedTodo[0].isEditing = false;
-        console.log(updatedTodo);
+        updatedTodo.title = createValue;
+        updatedTodo.isEditing = false;
       }
       newList.push(updatedTodo);
       saveLocalStorage(prevTodos);
@@ -56,16 +56,18 @@ function App() {
     // Get all todo less new todo + add the new todo
     const newList = prevTodos.filter((todos) => todos.id !== id);
     newList.push(changedTodo);
-    saveLocalStorage(prevTodos);
-    setPrevTodos(loadLocalStorage);
+    saveLocalStorage(newList);
+    setPrevTodos(loadLocalStorage());
     setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
   }
   
   const handleRemove = (id) => {
     const newList = prevTodos.filter((todos)=>todos.id !==id);
     saveLocalStorage(newList);
-    setPrevTodos(loadLocalStorage);
+    setPrevTodos(loadLocalStorage());
     setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
+    console.log(prevTodos);
+    console.log(loadLocalStorage());
   }
 
   return (
