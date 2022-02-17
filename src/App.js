@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Route } from "react-router-dom";
+import {v4 as uuid} from "uuid";
 
 import CreateTodo from "./components/CreateTodo";
 import TodoList from "./components/TodoList"
@@ -7,6 +8,7 @@ import TodoList from "./components/TodoList"
 import "./App.scss";
 
 import {saveLocalStorage,loadLocalStorage} from "./utils/localStorageHelper";
+
 
 
 function App() {
@@ -24,25 +26,43 @@ function App() {
   }
   const handleSubmit = (e) => {
       e.preventDefault();
-      prevTodos.push({title:createValue, status:false})
+      prevTodos.push({id:uuid(),title:createValue, status:false, isEditing:false})
       saveLocalStorage(prevTodos);
       setPrevTodos(loadLocalStorage);
   }
 
-  const handleChangeStatus = (title, status) => {
+  const handleIsEditing = (id) => {
+      const updatedTodo = prevTodos.filter((todo) => todo.id === id);
+      const newList = prevTodos.filter((todos) => todos.id !== id);
+      console.log(updatedTodo);
+      if(updatedTodo[0].isEditing === false){
+        updatedTodo[0].isEditing = true;
+      } else{
+        updatedTodo[0].title = createValue;
+        updatedTodo[0].isEditing = false;
+        console.log(updatedTodo);
+      }
+      newList.push(updatedTodo);
+      saveLocalStorage(prevTodos);
+      setPrevTodos(loadLocalStorage);
+  }
+
+
+
+  const handleChangeStatus = (id, status) => {
     // Find todo
-    const changedTodo = prevTodos.find((todo) => todo.title === title);
+    const changedTodo = prevTodos.find((todo) => todo.id === id);
     changedTodo.status = status;
     // Get all todo less new todo + add the new todo
-    const newList = prevTodos.filter((todos) => todos.title !== title);
+    const newList = prevTodos.filter((todos) => todos.id !== id);
     newList.push(changedTodo);
     saveLocalStorage(prevTodos);
     setPrevTodos(loadLocalStorage);
     setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
   }
   
-  const handleRemove = (title) => {
-    const newList = prevTodos.filter((todos)=>todos.title !==title);
+  const handleRemove = (id) => {
+    const newList = prevTodos.filter((todos)=>todos.id !==id);
     saveLocalStorage(newList);
     setPrevTodos(loadLocalStorage);
     setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
@@ -60,15 +80,19 @@ function App() {
       <CreateTodo handleSubmit={handleSubmit} handleChangeInput={handleChangeInput}/>
 
       <Route path="/" exact>
-        <TodoList prevTodos={prevTodos} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove}  />
+        <TodoList
+        prevTodos={prevTodos}
+        handleChangeStatus={handleChangeStatus}
+        handleRemove={handleRemove}
+        handleChangeInput={handleChangeInput} handleIsEditing={handleIsEditing} />
       </Route>
 
       <Route path="/active" exact>
-        <TodoList prevTodos={active} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove} />
+        <TodoList prevTodos={active} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove} handleChangeInput={handleChangeInput}handleIsEditing={handleIsEditing} />
       </Route>
 
       <Route path="/completed" exact>
-        <TodoList prevTodos={completed} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove} />
+        <TodoList prevTodos={completed} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove} handleIsEditing={handleIsEditing} handleChangeInput={handleChangeInput} />
       </Route>
 
       <footer>

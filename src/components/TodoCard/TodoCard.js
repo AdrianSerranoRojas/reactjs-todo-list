@@ -2,19 +2,48 @@ import React from "react";
 
 import "./TodoCard.scss";
 
-export default function TodoCard({ title, status, handleChangeStatus, handleRemove }) {
+export default function TodoCard({ 
+    id,
+    title,
+    status,
+    isEditing,
+    handleChangeStatus,
+    handleRemove,
+    handleIsEditing,
+    handleChangeInput
+     }) {
 
     function handleChangeCheckbox(e) {
-        handleChangeStatus(title, e.target.checked);
+        handleChangeStatus(id, e.target.checked);
     }
     function handleRemoveTodo(){
-        handleRemove(title)
+        handleRemove(id)
     }
+    function todoIsEditing(e){
+        e.preventDefault();
+        handleIsEditing(id)
+    }
+
 
     return(
         <div className="todoList__item">
             <input className="checkBox-input" type="checkBox" onChange={handleChangeCheckbox} checked={status}/>
-            <div className="task">{title}</div>
+            {
+            !isEditing ?(
+                <button type="button" onClick={todoIsEditing} className="task">{title}</button>
+            ) : (
+                <form onSubmit={todoIsEditing}>
+                    <input
+                        type="text"
+                        name="createTodo"
+                        onChange={handleChangeInput}
+                        defaultValue={title}/>
+                    <input
+                        type="submit"
+                        hidden/>
+                </form>
+                )
+            }
             <button type="button" onClick={handleRemoveTodo}>Close</button>
         </div>
     );
