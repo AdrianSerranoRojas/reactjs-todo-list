@@ -1,0 +1,18 @@
+.create__section{
+    margin :0px;
+
+        input{
+            margin-top: 15px;
+            margin-bottom: 15px;
+            height: 48px;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            width: 100%;
+
+            &:focus{
+                box-shadow: none;
+                outline: 3px solid #039BE5;
+                padding-left: 10%;
+            }
+        }
+}

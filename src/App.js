@@ -71,7 +71,12 @@ function App() {
   }
 
   return (
-    <main className="container mt-5">
+    <main className="">
+      <div className="backgroundImage">
+        <div className="backgroundDeg"/>
+      </div>
+      <div className="content">
+
       <section className="row">
         <div className="col col-10">
           <h1>T O D O</h1>
@@ -83,27 +88,35 @@ function App() {
 
       <Route path="/" exact>
         <TodoList
+        numTodo={numTodo}
         prevTodos={prevTodos}
         handleChangeStatus={handleChangeStatus}
         handleRemove={handleRemove}
-        handleChangeInput={handleChangeInput} handleIsEditing={handleIsEditing} />
+        handleChangeInput={handleChangeInput} handleIsEditing={handleIsEditing}
+        />
       </Route>
 
       <Route path="/active" exact>
-        <TodoList prevTodos={active} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove} handleChangeInput={handleChangeInput}handleIsEditing={handleIsEditing} />
+        <TodoList
+        prevTodos={active}
+        handleChangeStatus={handleChangeStatus}
+        handleRemove={handleRemove}
+        handleChangeInput={handleChangeInput}
+        handleIsEditing={handleIsEditing}
+        />
       </Route>
 
       <Route path="/completed" exact>
-        <TodoList prevTodos={completed} handleChangeStatus={handleChangeStatus} handleRemove={handleRemove} handleIsEditing={handleIsEditing} handleChangeInput={handleChangeInput} />
+        <TodoList
+        prevTodos={completed}
+        handleChangeStatus={handleChangeStatus}
+        handleRemove={handleRemove}
+        handleIsEditing={handleIsEditing}
+        handleChangeInput={handleChangeInput}
+        />
       </Route>
 
-      <footer>
-        <h3>{numTodo}</h3>
-        <a href="./">All</a>
-        <a href="./active">Active</a>
-        <a href="./completed">Completed</a>
-        <button type="button">Clear Completed</button>
-      </footer>
+      </div>
     </main>
   );
 }

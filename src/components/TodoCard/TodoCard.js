@@ -26,7 +26,7 @@ export default function TodoCard({
 
 
     return(
-        <div className="todoList__item">
+        <li className="todoList__item">
             <input className="checkBox-input" type="checkBox" onChange={handleChangeCheckbox} checked={status}/>
             {
             !isEditing ?(
@@ -44,7 +44,7 @@ export default function TodoCard({
                 </form>
                 )
             }
-            <button type="button" onClick={handleRemoveTodo}>Close</button>
-        </div>
+            <button type="button" onClick={handleRemoveTodo}>X</button>
+        </li>
     );
 }

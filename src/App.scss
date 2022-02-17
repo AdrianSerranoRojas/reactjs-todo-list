@@ -1,3 +1,48 @@
 main{
-    background-color: aqua;
+    padding-left: auto;
+    padding-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
 }
+
+h1{
+    color: white;
+}
+
+.content{
+    margin-top: 75px;
+    padding-left: auto;
+    padding-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    height: 50vh;
+    width: 50%;
+}
+
+.backgroundImage{
+    object-fit:scale-down;
+    background-repeat: no-repeat;
+    margin-top: 20%;
+    margin:0px;
+    height: 35vh;
+    width: 100%;
+    position:absolute;
+    z-index: -2;
+    background-image:url("./img/1-monte-everest.jpg") ;
+    background-position: 50% 30%;
+}
+
+.backgroundDeg{
+    margin:0px;
+    height: 100%;
+    width: 100%;
+    position:relative;
+    z-index: -1;
+    background: rgb(207,55,212);
+background: linear-gradient(90deg, rgba(207,55,212,0.65) 0%, rgba(0, 183, 255, 0.55) 100%);
+}
+

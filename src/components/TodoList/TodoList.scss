@@ -1,0 +1,18 @@
+.todoList__container{
+    background-color: white;
+    border-radius: 5px;
+    -webkit-box-shadow: 1px 10px 25px 4px rgba(0,0,0,0.5); 
+    box-shadow: 1px 10px 25px 4px rgba(0,0,0,0.5);
+    
+        ul{
+        list-style-type: none;
+        padding: 0;
+        margin: 0px;
+    }
+
+        li{
+        padding: 0px;
+        margin: 0px;
+        border-bottom: 2px solid rgb(235, 232, 232);
+    }
+}

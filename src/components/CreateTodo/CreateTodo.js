@@ -10,9 +10,9 @@ function ClearInput(e){
 }
 
     return(
-        <section>
+        <section className="create__section">
             <form onSubmit={ClearInput}>
-                <input type="text" name="createTodo" onChange={handleChangeInput}/>
+                <input className=""type="text" name="createTodo" onChange={handleChangeInput}/>
                 <input type="submit" hidden/>
             </form>
         </section>
