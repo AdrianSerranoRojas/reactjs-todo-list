@@ -27,7 +27,18 @@ export default function TodoCard({
 
     return(
         <li className="todoList__item">
-            <input className="checkBox-input" type="checkBox" onChange={handleChangeCheckbox} checked={status}/>
+                <label htmlFor="pepito">
+                    <input
+                    id="pepito"
+                    className="checkbox"
+                    name="checkBox"
+                    type="checkBox"
+                    onChange={handleChangeCheckbox}
+                    checked={status} />
+                    <span>
+                        ✓
+                    </span>
+                </label>
             {
             !isEditing ?(
                 <button type="button" onClick={todoIsEditing} className="task">{title}</button>

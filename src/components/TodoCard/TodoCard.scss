@@ -1,10 +1,38 @@
-.todoList__item{
-
+label{
+    position: relative;
+}
+span{
+    z-index: 10;
+    position:absolute;
+    top: 4px;
+    left: 9px;
 }
 
-.checkBox-input{
-margin: 15px;
-background-color: red;
+.checkbox {
+    margin: 5px;
+    width: 1.3em;
+    height: 1.3em;
+    border: 3px solid transparent;
+    background:
+    linear-gradient(rgb(255, 255, 255),rgb(255, 255, 255)) padding-box, /*this is your grey background*/
+    linear-gradient(to right, #019aff, #fb3570) border-box;
+    border-radius: 50%;
+    vertical-align: middle;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+
+        &:checked {
+        border: 3px solid transparent;
+        background:
+        linear-gradient(to right, #019aff, #fb3570) border-box;
+    }
+        &::before{
+            clip-path: polygon(43% 67%, 27% 47%, 16% 56%, 41% 89%, 100% 20%, 93% 12%);
+    }
 }
 
 li{
@@ -14,7 +42,7 @@ justify-content: flex-start;
 
     button{
     &:last-child{
-        margin-left: auto;
+    margin-left: auto;
     }
     margin-right: 15px;
     background-color: white;
