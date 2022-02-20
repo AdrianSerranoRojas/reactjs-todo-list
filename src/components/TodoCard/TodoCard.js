@@ -27,16 +27,16 @@ export default function TodoCard({
 
     return(
         <li className="todoList__item">
-                <label htmlFor="pepito">
+                <label htmlFor={id}>
                     <input
-                    id="pepito"
+                    id={id}
                     className="checkbox"
                     name="checkBox"
                     type="checkBox"
                     onChange={handleChangeCheckbox}
                     checked={status} />
                     <span>
-                        ✓
+                        {status ? "✓" :"" }
                     </span>
                 </label>
             {

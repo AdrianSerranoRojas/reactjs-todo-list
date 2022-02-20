@@ -1,21 +1,32 @@
+@use "./src/constants" as *;
+
 label{
+    margin: 5px;
+    margin-left: 10px;
     position: relative;
+    cursor:pointer;
 }
+
 span{
-    z-index: 10;
     position:absolute;
     top: 4px;
     left: 9px;
+    user-select: none;
+    color: var(--color__secondary);
+    &.theme--dark{
+        color: var(--color__text) ;
+    }
 }
 
 .checkbox {
+    color: var(--color__secondary);
     margin: 5px;
     width: 1.3em;
     height: 1.3em;
     border: 3px solid transparent;
     background:
-    linear-gradient(rgb(255, 255, 255),rgb(255, 255, 255)) padding-box, /*this is your grey background*/
-    linear-gradient(to right, #019aff, #fb3570) border-box;
+    linear-gradient(var(--color__secondary),var(--color__secondary)) padding-box, /*this is your grey background*/
+    linear-gradient(to right, var(--color__background-left), var(--color__background-right)) border-box;
     border-radius: 50%;
     vertical-align: middle;
     appearance: none;
@@ -28,24 +39,31 @@ span{
         &:checked {
         border: 3px solid transparent;
         background:
-        linear-gradient(to right, #019aff, #fb3570) border-box;
+        linear-gradient(to right, var(--color__background-left), var(--color__background-right)) border-box;
+            
     }
         &::before{
             clip-path: polygon(43% 67%, 27% 47%, 16% 56%, 41% 89%, 100% 20%, 93% 12%);
     }
+
 }
 
 li{
+background-color: var(--color__secondary);
 display: flex;
-color: white;
 justify-content: flex-start;
 
     button{
+        color: var(--color__text);
     &:last-child{
     margin-left: auto;
     }
     margin-right: 15px;
-    background-color: white;
-    border: 0px solid white;
+    background-color: var(--color__secondary);
+    border: 0px solid var(--color__secondary);
     }
 }
+
+// input{
+//     background-color: var(--color__secondary);
+// }

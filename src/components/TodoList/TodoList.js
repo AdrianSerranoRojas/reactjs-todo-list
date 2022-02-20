@@ -30,10 +30,12 @@ export default function TodoList({
             )}
             </ul>
             <footer>
-                <h3>{numTodo}</h3>
-                <a href="./">All</a>
-                <a href="./active">Active</a>
-                <a href="./completed">Completed</a>
+                <p>{numTodo} items left</p>
+                <div className="link-container">
+                    <a href="./">All</a>
+                    <a href="./active">Active</a>
+                    <a href="./completed">Completed</a>
+                </div>
                 <button type="button">Clear Completed</button>
             </footer>
         </section>

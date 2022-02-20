@@ -2,16 +2,20 @@
     margin :0px;
 
         input{
+            color: var(--color__text);
+            background-color: var(--color__secondary);
             margin-top: 15px;
             margin-bottom: 15px;
             height: 48px;
-            border: 2px solid #eee;
+            border: 2px solid var(--color__secondary);
             border-radius: 5px;
             width: 100%;
+            -webkit-box-shadow: 1px 10px 25px 4px var(--color__text); 
+            box-shadow: 1px 10px 25px 4px var(--color__text);
 
             &:focus{
                 box-shadow: none;
-                outline: 3px solid #039BE5;
+                outline: 3px solid var(--color__background-right);
                 padding-left: 10%;
             }
         }
