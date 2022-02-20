@@ -11,7 +11,7 @@ export default function TodoCard({
     handleRemove,
     handleIsEditing,
     handleChangeInput
-     }) {
+    }) {
 
     function handleChangeCheckbox(e) {
         handleChangeStatus(id, e.target.checked);
@@ -26,7 +26,7 @@ export default function TodoCard({
 
 
     return(
-        <li className="todoList__item">
+        <li className="todoList__item" key={id}>
                 <label htmlFor={id}>
                     <input
                     id={id}
@@ -48,7 +48,10 @@ export default function TodoCard({
                         type="text"
                         name="createTodo"
                         onChange={handleChangeInput}
+                        onBlur={todoIsEditing}
+                        disabled={status}
                         defaultValue={title}/>
+                        
                     <input
                         type="submit"
                         hidden/>

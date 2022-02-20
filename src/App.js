@@ -11,6 +11,7 @@ import {saveLocalStorage,loadLocalStorage} from "./utils/localStorageHelper";
 
 
 
+
 function App() {
 
   const [prevTodos, setPrevTodos] = useState(loadLocalStorage());
@@ -35,31 +36,41 @@ function App() {
   }
 
   const handleIsEditing = (id) => {
-      const updatedTodo = prevTodos.filter((todo) => todo.id === id)[0];
-      const newList = prevTodos.filter((todos) => todos.id !== id);
-      if(updatedTodo.isEditing === false){
-        updatedTodo.isEditing = true;
-      } else{
-        updatedTodo.title = createValue;
-        updatedTodo.isEditing = false;
+    const updatedTodo = prevTodos.map((todo)=>{
+      if(todo.id === id){
+        if(todo.isEditing === false){
+          return {...todo, isEditing:true}
+        }
+        return {...todo, title:createValue, isEditing:false}
       }
-      newList.push(updatedTodo);
-      saveLocalStorage(newList);
+      return todo;
+    });
+      // const updatedTodo = prevTodos.filter((todo) => todo.id === id)[0];
+      // const newList = prevTodos.filter((todos) => todos.id !== id);
+      // if(updatedTodo.isEditing === false){
+      //   updatedTodo.isEditing = true;
+      // } else{
+      //   updatedTodo.title = createValue;
+      //   updatedTodo.isEditing = false;
+      // }
+      saveLocalStorage(updatedTodo);
       setPrevTodos(loadLocalStorage);
   }
 
-  const handleChangeStatus = (id, newStatus) => {
-    // Find todo
-    console.log(prevTodos);
-    const changedTodo = prevTodos.filter((todo) => todo.id === id);
-    changedTodo[0].status = newStatus;
-    changedTodo[0].id = uuid();
-    console.log(changedTodo);
-    console.log(prevTodos);
-    // Get all todo less new todo + add the new todo
-    const newList = prevTodos.filter((todos) => todos.id !== id);
+  const handleChangeStatus = (id,newStatus) => {
+    console.log(newStatus)
+    console.log(prevTodos)
+
+    const newList = prevTodos.map( (todo) => {
+      if (todo.id === id){
+        return {...todo,
+        status: newStatus};
+      }
+        return todo;
+      }
+    )
     console.log(newList);
-    newList.push(changedTodo[0]);
+
     saveLocalStorage(newList);
     setPrevTodos(loadLocalStorage());
     setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
