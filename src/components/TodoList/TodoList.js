@@ -5,12 +5,13 @@ import TodoCard from "../TodoCard";
 import "./TodoList.scss";
 
 export default function TodoList({
-    numTodo,
     prevTodos,
     handleChangeStatus,
     handleRemove,
     handleIsEditing,
-    handleChangeInput
+    handleChangeInput,
+    handleBlur,
+    errorMsg
 }) {
     return (
         <section className="todoList__container">
@@ -25,12 +26,15 @@ export default function TodoList({
                 handleRemove={handleRemove}
                 handleIsEditing={handleIsEditing}
                 isEditing={todos.isEditing}
-                handleChangeInput={handleChangeInput}/>
+                handleChangeInput={handleChangeInput}
+                handleBlur={handleBlur}
+                errorMsg={errorMsg}
+                />
             )
             )}
             </ul>
             <footer>
-                <p>{numTodo} items left</p>
+                <p>{prevTodos.filter((active)=>active.status===false).length} items left</p>
                 <div className="link-container">
                     <a href="./">All</a>
                     <a href="./active">Active</a>

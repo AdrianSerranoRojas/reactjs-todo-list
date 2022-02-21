@@ -2,7 +2,7 @@ import React from "react";
 
 import "./CreateTodo.scss";
 
-export default function CreateTodo({handleSubmit, handleChangeInput}) {
+export default function CreateTodo({handleSubmit, handleChangeInput, errorMsg}) {
 
 function ClearInput(e){
     e.target.reset();
@@ -15,6 +15,9 @@ function ClearInput(e){
                 <input className=""type="text" name="createTodo" onChange={handleChangeInput}/>
                 <input type="submit" hidden/>
             </form>
+            <div className="errorMSg" data-testid="create-todo-error-message" >
+            <p>{errorMsg}</p>
+            </div>
         </section>
     );
 }

@@ -10,8 +10,10 @@ export default function TodoCard({
     handleChangeStatus,
     handleRemove,
     handleIsEditing,
-    handleChangeInput
+    handleChangeInput,
+    handleBlur
     }) {
+
 
     function handleChangeCheckbox(e) {
         handleChangeStatus(id, e.target.checked);
@@ -24,6 +26,9 @@ export default function TodoCard({
         handleIsEditing(id)
     }
 
+    function handleOnBlur(){
+        handleBlur(id)
+    }
 
     return(
         <li className="todoList__item" key={id}>
@@ -48,10 +53,12 @@ export default function TodoCard({
                         type="text"
                         name="createTodo"
                         onChange={handleChangeInput}
-                        onBlur={todoIsEditing}
+                        onBlur={handleOnBlur}
                         disabled={status}
-                        defaultValue={title}/>
-                        
+                        defaultValue={title}
+                        // eslint-disable-next-line jsx-a11y/no-autofocus
+                        autoFocus
+                        />
                     <input
                         type="submit"
                         hidden/>

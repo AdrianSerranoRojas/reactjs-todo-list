@@ -22,45 +22,63 @@ function App() {
   const completed = prevTodos.filter((todos)=>todos.status === true);
 
   const [numTodo, setNumTodo] = useState(active.length);
-
+  const [errorMsg,setErrorMsg]  = useState("");
   const handleChangeInput = (event) => {
       setCreateValue(event.target.value);
-
   }
+
+  
+
+
   const handleSubmit = (e) => {
-      e.preventDefault();
+    e.preventDefault();
+    if(createValue === "") {
+      setErrorMsg("Please enter at least one character ");
+      return;
+    }
+      setErrorMsg("");
       prevTodos.push({id:uuid(),title:createValue, status:false, isEditing:false})
+      setCreateValue("");
       saveLocalStorage(prevTodos);
       setPrevTodos(loadLocalStorage);
       setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
   }
 
+  const handleBlur = (id) => {
+    const updatedTodo = prevTodos.map((todo)=>{
+      if(todo.id === id){
+        if(todo.isEditing === true){
+          return {...todo, isEditing:false}
+        }
+        return {...todo}
+      }
+      return todo;
+    });
+      saveLocalStorage(updatedTodo);
+      setPrevTodos(loadLocalStorage);
+  }
+
   const handleIsEditing = (id) => {
     const updatedTodo = prevTodos.map((todo)=>{
       if(todo.id === id){
+        setCreateValue(todo.title)
         if(todo.isEditing === false){
           return {...todo, isEditing:true}
         }
+          if(createValue === "") {
+          setErrorMsg("Please enter at least one character ");
+          return todo;
+          }
+        setErrorMsg("");
         return {...todo, title:createValue, isEditing:false}
       }
       return todo;
     });
-      // const updatedTodo = prevTodos.filter((todo) => todo.id === id)[0];
-      // const newList = prevTodos.filter((todos) => todos.id !== id);
-      // if(updatedTodo.isEditing === false){
-      //   updatedTodo.isEditing = true;
-      // } else{
-      //   updatedTodo.title = createValue;
-      //   updatedTodo.isEditing = false;
-      // }
       saveLocalStorage(updatedTodo);
       setPrevTodos(loadLocalStorage);
   }
 
   const handleChangeStatus = (id,newStatus) => {
-    console.log(newStatus)
-    console.log(prevTodos)
-
     const newList = prevTodos.map( (todo) => {
       if (todo.id === id){
         return {...todo,
@@ -69,13 +87,11 @@ function App() {
         return todo;
       }
     )
-    console.log(newList);
-
     saveLocalStorage(newList);
     setPrevTodos(loadLocalStorage());
     setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
   }
-  
+
   const handleRemove = (id) => {
     const newList = prevTodos.filter((todos)=>todos.id !==id);
     saveLocalStorage(newList);
@@ -97,7 +113,6 @@ function App() {
         <div className="backgroundDeg"/>
       </div>
       <div className="content">
-
       <section className="row">
         <div className={`col col-10" ${darkState}`}>
           <h1>T O D O</h1>
@@ -107,7 +122,11 @@ function App() {
         </button>
       </section>
 
-      <CreateTodo handleSubmit={handleSubmit} handleChangeInput={handleChangeInput}/>
+      <CreateTodo
+        handleSubmit={handleSubmit}
+        handleChangeInput={handleChangeInput}
+        errorMsg={errorMsg}
+      />
 
       <Route path="/" exact>
         <TodoList
@@ -117,6 +136,7 @@ function App() {
         handleRemove={handleRemove}
         handleChangeInput={handleChangeInput}
         handleIsEditing={handleIsEditing}
+        handleBlur={handleBlur}
         />
       </Route>
 
@@ -127,6 +147,7 @@ function App() {
         handleRemove={handleRemove}
         handleChangeInput={handleChangeInput}
         handleIsEditing={handleIsEditing}
+        handleBlur={handleBlur}
         />
       </Route>
 
@@ -137,6 +158,7 @@ function App() {
         handleRemove={handleRemove}
         handleIsEditing={handleIsEditing}
         handleChangeInput={handleChangeInput}
+        handleBlur={handleBlur}
         />
       </Route>
 

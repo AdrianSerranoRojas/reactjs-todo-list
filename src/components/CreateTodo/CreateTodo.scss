@@ -10,8 +10,8 @@
             border: 2px solid var(--color__secondary);
             border-radius: 5px;
             width: 100%;
-            -webkit-box-shadow: 1px 10px 25px 4px var(--color__text); 
-            box-shadow: 1px 10px 25px 4px var(--color__text);
+            -webkit-box-shadow: 1px 10px 25px 4px var(--color__shadow); 
+            box-shadow: 1px 10px 25px 4px var(--color__shadow);
 
             &:focus{
                 box-shadow: none;

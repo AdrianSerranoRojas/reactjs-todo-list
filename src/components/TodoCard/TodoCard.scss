@@ -12,9 +12,9 @@ span{
     top: 4px;
     left: 9px;
     user-select: none;
-    color: var(--color__secondary);
+    color: var(--color__tic);
     &.theme--dark{
-        color: var(--color__text) ;
+        color: var(--color__tic) ;
     }
 }
 

@@ -6,12 +6,16 @@
     --color__text: #{$color__text};
     --color__background-left: #{$color__background-left};
     --color__background-right: #{$color__background-right};
+    --color__shadow: #{$color__shadow};
+    --color__tic: #{$color__tic};
     &--dark{
         --color__primary: #{$color__primary--dark};
         --color__secondary: #{$color__secondary--dark};
         --color__text: #{$color__text--dark};
         --color__background-left: #{$color__background-left--dark};
         --color__background-right: #{$color__background-right--dark};
+        --color__shadow: #{$color__shadow--dark};
+        --color__tic: #{$color__tic--dark};
     }
 }
 
@@ -28,9 +32,9 @@ main{
         .dark-btn{
             background-color: transparent;
             border: 0px solid transparent;
-            font-weight:bold;
             font-size: larger;
-            color: black;
+            color: var(--color__tic);
+            padding-right: 20px;
         }
 }
 
