@@ -9,9 +9,6 @@ import "./App.scss";
 
 import {saveLocalStorage,loadLocalStorage} from "./utils/localStorageHelper";
 
-
-
-
 function App() {
 
   const [prevTodos, setPrevTodos] = useState(loadLocalStorage());
@@ -27,7 +24,16 @@ function App() {
       setCreateValue(event.target.value);
   }
 
-  
+  const reorder = (list, startIndex, endIndex)=> {
+    const result = [...list];
+    const [removed] = result.splice(startIndex.index, 1);
+    result.splice(endIndex.index, 0, removed);
+    return result;
+  }
+
+  const settingPrevTodos = (source, destination)=> {
+    setPrevTodos(reorder(prevTodos, source, destination));
+  }
 
 
   const handleSubmit = (e) => {
@@ -137,6 +143,7 @@ function App() {
         handleChangeInput={handleChangeInput}
         handleIsEditing={handleIsEditing}
         handleBlur={handleBlur}
+        settingPrevTodos={settingPrevTodos}
         />
       </Route>
 
@@ -148,6 +155,7 @@ function App() {
         handleChangeInput={handleChangeInput}
         handleIsEditing={handleIsEditing}
         handleBlur={handleBlur}
+        settingPrevTodos={settingPrevTodos}
         />
       </Route>
 
@@ -159,6 +167,7 @@ function App() {
         handleIsEditing={handleIsEditing}
         handleChangeInput={handleChangeInput}
         handleBlur={handleBlur}
+        settingPrevTodos={settingPrevTodos}
         />
       </Route>
 

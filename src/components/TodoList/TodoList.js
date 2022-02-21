@@ -1,4 +1,5 @@
-import React from 'react';
+import {React} from 'react';
+import {DragDropContext, Droppable} from "react-beautiful-dnd";
 
 import TodoCard from "../TodoCard";
 
@@ -11,12 +12,32 @@ export default function TodoList({
     handleIsEditing,
     handleChangeInput,
     handleBlur,
-    errorMsg
+    errorMsg,
+    settingPrevTodos
 }) {
+    function handleSetPrevTodos(source,destination){
+        settingPrevTodos(source,destination);
+    }
     return (
         <section className="todoList__container">
-            <ul className="ul-list">
-            {prevTodos.map((todos) => (
+            <DragDropContext onDragEnd={(result)=> {
+                const {source, destination} = result;
+                if(!destination){
+                    return;
+                }
+                if(source.index === destination.index){
+                    return;
+                }
+                handleSetPrevTodos(source,destination)
+                 } }>
+            <Droppable droppableId='todo'>
+            {(droppableProvided)=>(
+            <ul
+                className="ul-list"
+                {...droppableProvided.droppableProps}
+                ref={droppableProvided.innerRef}
+            >
+            {prevTodos.map((todos, index) => (
                 <TodoCard
                 key={todos.id}
                 id={todos.id}
@@ -29,10 +50,14 @@ export default function TodoList({
                 handleChangeInput={handleChangeInput}
                 handleBlur={handleBlur}
                 errorMsg={errorMsg}
+                index = {index}
                 />
             )
             )}
-            </ul>
+            {droppableProvided.placeholder}
+            </ul>)}
+            </Droppable>
+            </DragDropContext>
             <footer>
                 <p>{prevTodos.filter((active)=>active.status===false).length} items left</p>
                 <div className="link-container">

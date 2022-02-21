@@ -1,4 +1,5 @@
-import React from "react";
+import {React} from "react";
+import {Draggable} from "react-beautiful-dnd"
 
 import "./TodoCard.scss";
 
@@ -11,7 +12,8 @@ export default function TodoCard({
     handleRemove,
     handleIsEditing,
     handleChangeInput,
-    handleBlur
+    handleBlur,
+    index
     }) {
 
 
@@ -31,7 +33,15 @@ export default function TodoCard({
     }
 
     return(
-        <li className="todoList__item" key={id}>
+        <Draggable key={id} draggableId={id} index={index}>
+        {(draggableProvided)=>(
+        <li
+            className="todoList__item"
+            key={id}
+            {...draggableProvided.draggableProps}
+            ref={draggableProvided.innerRef}
+            {...draggableProvided.dragHandleProps}
+        >
                 <label htmlFor={id}>
                     <input
                     id={id}
@@ -66,6 +76,8 @@ export default function TodoCard({
                 )
             }
             <button type="button" onClick={handleRemoveTodo}>X</button>
-        </li>
+
+        </li>)}
+        </Draggable>
     );
 }
