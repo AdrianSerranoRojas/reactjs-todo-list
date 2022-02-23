@@ -71,3 +71,11 @@ footer{
     }
 
 }
+
+.bg-no-todos {
+    height: 30vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image:url("../../img/notask.png");
+    background-position: 50% 50%;
+}

@@ -50,7 +50,7 @@ export default function TodoCard({
                     type="checkBox"
                     onChange={handleChangeCheckbox}
                     checked={status} />
-                    <span>
+                    <span className={status ? "Check" :"notCheck" }>
                         {status ? "✓" :"" }
                     </span>
                 </label>

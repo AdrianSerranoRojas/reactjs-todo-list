@@ -9,17 +9,53 @@ import "./App.scss";
 
 import {saveLocalStorage,loadLocalStorage} from "./utils/localStorageHelper";
 
+CSS.registerProperty({
+  name: '--my-color',
+  syntax: '<color>',
+  inherits: false,
+  initialValue: "red",
+});
+
+CSS.registerProperty({
+  name: '--my-color2',
+  syntax: '<color>',
+  inherits: false,
+  initialValue: "blue",
+});
+
+CSS.registerProperty({
+  name: '--my-color3',
+  syntax: '<color>',
+  inherits: false,
+  initialValue: "white",
+});
+
+CSS.registerProperty({
+  name: '--my-color4',
+  syntax: '<color>',
+  inherits: false,
+  initialValue: "white",
+});
+
+CSS.registerProperty({
+  name: '--my-angle',
+  syntax: '<angle>',
+  inherits: false,
+  initialValue: "90deg",
+});
+
+
 function App() {
 
   const [prevTodos, setPrevTodos] = useState(loadLocalStorage());
   const [createValue, setCreateValue] = useState("");
   const [darkState, setDarkStatus] = useState("theme");
+  const [errorMsg,setErrorMsg]  = useState("");
 
   const active = prevTodos.filter((todos)=>todos.status === false);
   const completed = prevTodos.filter((todos)=>todos.status === true);
 
-  const [numTodo, setNumTodo] = useState(active.length);
-  const [errorMsg,setErrorMsg]  = useState("");
+
   const handleChangeInput = (event) => {
       setCreateValue(event.target.value);
   }
@@ -35,7 +71,6 @@ function App() {
     setPrevTodos(reorder(prevTodos, source, destination));
   }
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if(createValue === "") {
@@ -47,7 +82,6 @@ function App() {
       setCreateValue("");
       saveLocalStorage(prevTodos);
       setPrevTodos(loadLocalStorage);
-      setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
   }
 
   const handleBlur = (id) => {
@@ -95,15 +129,20 @@ function App() {
     )
     saveLocalStorage(newList);
     setPrevTodos(loadLocalStorage());
-    setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
   }
 
   const handleRemove = (id) => {
     const newList = prevTodos.filter((todos)=>todos.id !==id);
     saveLocalStorage(newList);
     setPrevTodos(loadLocalStorage());
-    setNumTodo(prevTodos.filter((todos)=>todos.status === false).length);
   }
+
+    const clearCompleted = () => {
+    const newList = prevTodos.filter((todos)=>todos.status === false);
+    saveLocalStorage(newList);
+    setPrevTodos(loadLocalStorage());
+  }
+
 
   function handleDarkMode(){
     if (darkState === "theme--dark"){
@@ -136,7 +175,6 @@ function App() {
 
       <Route path="/" exact>
         <TodoList
-        numTodo={numTodo}
         prevTodos={prevTodos}
         handleChangeStatus={handleChangeStatus}
         handleRemove={handleRemove}
@@ -144,6 +182,7 @@ function App() {
         handleIsEditing={handleIsEditing}
         handleBlur={handleBlur}
         settingPrevTodos={settingPrevTodos}
+        clearCompleted={clearCompleted}
         />
       </Route>
 
@@ -156,6 +195,7 @@ function App() {
         handleIsEditing={handleIsEditing}
         handleBlur={handleBlur}
         settingPrevTodos={settingPrevTodos}
+        clearCompleted={clearCompleted}
         />
       </Route>
 
@@ -168,6 +208,7 @@ function App() {
         handleChangeInput={handleChangeInput}
         handleBlur={handleBlur}
         settingPrevTodos={settingPrevTodos}
+        clearCompleted={clearCompleted}
         />
       </Route>
 

@@ -15,9 +15,15 @@ function ClearInput(e){
                 <input className=""type="text" name="createTodo" onChange={handleChangeInput}/>
                 <input type="submit" hidden/>
             </form>
+            {errorMsg === "" ? (
+            <p>{errorMsg}</p>
+            ):
+            (
             <div className="errorMSg" data-testid="create-todo-error-message" >
             <p>{errorMsg}</p>
             </div>
+            )
+            }
         </section>
     );
 }
